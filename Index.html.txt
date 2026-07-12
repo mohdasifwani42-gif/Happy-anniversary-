@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Anniversary ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:'Poppins',sans-serif;
+
+}
+
+body{
+
+    background:linear-gradient(135deg,#ff4e8d,#ff7eb3,#ffc371);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:100vh;
+
+    overflow:hidden;
+
+    color:#fff;
+
+    padding:20px;
+
+}
+
+.card{
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:25px;
+
+    max-width:700px;
+
+    width:100%;
+
+    text-align:center;
+
+    padding:40px 25px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+    animation:fadeIn 1.5s;
+
+}
+
+h1{
+
+    font-size:2.5rem;
+
+    margin-bottom:10px;
+
+}
+
+h2{
+
+    font-size:1.3rem;
+
+    margin-bottom:25px;
+
+    font-weight:400;
+
+}
+
+p{
+
+    line-height:1.8;
+
+    font-size:1.05rem;
+
+    margin-bottom:20px;
+
+}
+
+button{
+
+    background:#fff;
+
+    color:#ff4e8d;
+
+    border:none;
+
+    padding:15px 35px;
+
+    border-radius:50px;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:bold;
+
+}
+
+button:hover{
+
+    transform:scale(1.08);
+
+}
+
+#message{
+
+    display:none;
+
+    margin-top:25px;
+
+    font-size:1.2rem;
+
+    animation:pop 1s;
+
+}
+
+canvas{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    pointer-events:none;
+
+}
+
+@keyframes fadeIn{
+
+from{opacity:0;transform:translateY(40px);}
+
+to{opacity:1;transform:translateY(0);}
+
+}
+
+@keyframes pop{
+
+from{opacity:0;transform:scale(.8);}
+
+to{opacity:1;transform:scale(1);}
+
+}
+
+@media(max-width:600px){
+
+.card{
+
+padding:25px 18px;
+
+}
+
+h1{
+
+font-size:2rem;
+
+}
+
+h2{
+
+font-size:1.1rem;
+
+}
+
+p{
+
+font-size:.95rem;
+
+}
+
+button{
+
+width:100%;
+
+font-size:17px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="card">
+
+<h1>❤️ Happy Anniversary ❤️</h1>
+
+<h2>To My Forever Love 💕</h2>
+
+<p>
+
+Every day with you has been another beautiful page in our love story.
+
+Thank you for filling my life with laughter, warmth, and endless love.
+
+</p>
+
+<p>
+
+No matter what challenges come our way, my heart will always choose you.
+
+You are my happiness, my peace, my best friend, and my greatest blessing.
+
+</p>
+
+<p>
+
+Here's to another year of creating unforgettable memories together.
+
+I love you more than words can ever express.
+
+</p>
+
+<button onclick="celebrate()">
+
+🎉 Click for a Surprise
+
+</button>
+
+<div id="message">
+
+💖 Happy Anniversary, My Love! 💖<br><br>
+
+"I promise to keep falling in love with you every single day,
+
+for the rest of my life." ❤️
+
+</div>
+
+</div>
+
+<script>
+
+const canvas=document.getElementById("confetti");
+
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+
+canvas.height=window.innerHeight;
+
+window.addEventListener("resize",()=>{
+
+canvas.width=window.innerWidth;
+
+canvas.height=window.innerHeight;
+
+});
+
+let confetti=[];
+
+function randomColor(){
+
+const colors=[
+
+"#ff4e8d",
+
+"#ffd700",
+
+"#00e5ff",
+
+"#7CFC00",
+
+"#ffffff",
+
+"#ff8c00",
+
+"#00ff99"
+
+];
+
+return colors[Math.floor(Math.random()*colors.length)];
+
+}
+
+function createConfetti(){
+
+for(let i=0;i<220;i++){
+
+confetti.push({
+
+x:Math.random()*canvas.width,
+
+y:Math.random()*canvas.height-canvas.height,
+
+r:Math.random()*8+4,
+
+d:Math.random()*220,
+
+color:randomColor(),
+
+tilt:Math.random()*10,
+
+tiltAngle:0,
+
+speed:Math.random()*4+2
+
+});
+
+}
+
+animate();
+
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+confetti.forEach((c,index)=>{
+
+ctx.beginPath();
+
+ctx.fillStyle=c.color;
+
+ctx.fillRect(c.x,c.y,c.r,c.r);
+
+c.y+=c.speed;
+
+c.x+=Math.sin(c.d);
+
+if(c.y>canvas.height){
+
+confetti[index]={
+
+x:Math.random()*canvas.width,
+
+y:-20,
+
+r:c.r,
+
+d:c.d,
+
+color:c.color,
+
+tilt:c.tilt,
+
+tiltAngle:0,
+
+speed:c.speed
+
+};
+
+}
+
+});
+
+requestAnimationFrame(animate);
+
+}
+
+function celebrate(){
+
+document.getElementById("message").style.display="block";
+
+createConfetti();
+
+}
+
+</script>
+
+</body>
+
+</html>
